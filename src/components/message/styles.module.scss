@@ -1,0 +1,20 @@
+.messageCard {
+	max-width: 400px;
+
+	.messageHeader {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+	}
+
+	.messageText {
+		word-break: break-all;
+		margin: 5px 0;
+	}
+
+	:global {
+		.ant-card-body {
+			padding: 10px;
+		}
+	}
+}

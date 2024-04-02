@@ -1,0 +1,11 @@
+.list {
+	margin-top: 20px;
+	.item {
+		border-block-end: 1px solid #0958d9 !important;
+		padding: 20px 10px;
+
+		&:last-child {
+			border-block-end: none !important;
+		}
+	}
+}
