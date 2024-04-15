@@ -53,7 +53,8 @@ const contentStyle: React.CSSProperties = {
 	color: '#0958d9',
 	backgroundColor: '#fff',
 	padding: '20px',
-	overflow: 'auto'
+	overflow: 'auto',
+	scrollBehavior: 'smooth'
 };
 
 const siderStyle: React.CSSProperties = {

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import ChatArea from '../../components/chat-area';
@@ -56,7 +56,9 @@ function Main() {
 			dispatch(logout());
 			navigate('/');
 		}, [navigate]),
-		onCloseReply: useCallback(() => dispatch(unShowReply()), [dispatch])
+		onCloseReply: useCallback(() => {
+			dispatch(unShowReply());
+		}, [dispatch])
 	};
 
 	return (

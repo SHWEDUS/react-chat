@@ -15,18 +15,30 @@ const ReplyMessage: React.FC<MessageProps> = ({
 	onCLose,
 	isInList = false
 }) => {
+	if (!isInList) {
+		return (
+			<div id={item.id.toString()} className={styles.messageCard}>
+				<span className={styles.messageHeader}>
+					<b>{item.author}</b>
+					<p className={styles.messageText}>{item.text}</p>
+				</span>
+				<button className={styles.cross} onClick={onCLose}>
+					<CloseOutlined />
+				</button>
+			</div>
+		);
+	}
 	return (
-		<div className={!isInList ? styles.messageCard : styles.messageCardChat}>
+		<a
+			href={`#${item.id}`}
+			id={item.id.toString()}
+			className={styles.messageCardChat}
+		>
 			<span className={styles.messageHeader}>
 				<b>{item.author}</b>
 				<p className={styles.messageText}>{item.text}</p>
 			</span>
-			{!isInList && (
-				<button className={styles.cross} onClick={onCLose}>
-					<CloseOutlined />
-				</button>
-			)}
-		</div>
+		</a>
 	);
 };
 

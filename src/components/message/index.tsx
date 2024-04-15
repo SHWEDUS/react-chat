@@ -1,4 +1,4 @@
-import { Button, Card } from 'antd';
+import { Button, Card, Image } from 'antd';
 import React, { memo, useRef } from 'react';
 import type { IMessage } from '../../models/IMessage';
 import ReplyMessage from '../reply-message';
@@ -11,7 +11,7 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ item, onReply }) => {
 	return (
-		<Card className={styles.messageCard}>
+		<Card id={item.id.toString()} className={styles.messageCard}>
 			{item.parent && <ReplyMessage item={item.parent} isInList={true} />}
 			<span className={styles.messageHeader}>
 				<b>{item.author}</b>

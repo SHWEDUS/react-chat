@@ -44,7 +44,7 @@ const ListMessages: React.FC<ListMessagesProps> = ({
 		}
 		messagesByDay.get(dateKey)?.push(item);
 	});
-	console.log([...messagesByDay.keys()]);
+
 	return (
 		<Flex vertical={true} gap={10}>
 			{[...messagesByDay.keys()].map((dateKey, index) => (
