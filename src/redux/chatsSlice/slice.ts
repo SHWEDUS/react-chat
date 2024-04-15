@@ -12,18 +12,20 @@ export const userSlice = createSlice({
 	reducers: {
 		addChat: (state, action: PayloadAction<IChat>) => {
 			state.items = [...state.items, action.payload];
-			sessionStorage.setItem('chats', JSON.stringify(state.items));
+			localStorage.setItem('chats', JSON.stringify(state.items));
 		},
 		sendMessage: (state, action: PayloadAction<IMessage>) => {
-			const chat = state.items.find(
-				item => item.id === action.payload.chat
-			) as IChat;
+			const chat = state.items.find(item => item.id === action.payload.chat);
+			if (!chat) {
+				return;
+			}
 			const newChat = { ...chat, messages: [...chat.messages, action.payload] };
+
 			state.items = [
 				...state.items.filter(item => item.id !== newChat.id),
 				newChat
 			];
-			sessionStorage.setItem('chats', JSON.stringify(state.items));
+			localStorage.setItem('chats', JSON.stringify(state.items));
 		}
 	}
 });

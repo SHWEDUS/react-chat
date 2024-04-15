@@ -1,5 +1,5 @@
 import { Button, Layout, List, Typography } from 'antd';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import type { IChat } from '../../models/IChat';
 import type { IUser } from '../../models/IUser';
@@ -77,6 +77,14 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 	footer,
 	logout
 }) => {
+	const messagesContainerRef = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		if (messagesContainerRef.current) {
+			messagesContainerRef.current.scrollTop =
+				messagesContainerRef.current.scrollHeight;
+		}
+	}, [children]);
+
 	if (user.isAuth) {
 		return (
 			<Layout>
@@ -99,7 +107,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 				</Sider>
 				<Layout style={layoutStyle}>
 					<Header style={headerStyle}>{title}</Header>
-					<Content style={contentStyle}>{children}</Content>
+					<Content ref={messagesContainerRef} style={contentStyle}>
+						{children}
+					</Content>
 					<Footer style={footerStyle}>{footer}</Footer>
 				</Layout>
 			</Layout>

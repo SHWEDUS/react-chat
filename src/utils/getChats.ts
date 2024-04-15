@@ -2,7 +2,7 @@ import type { ChatSliceState } from '../redux/chatsSlice/types';
 
 export const getChats = (): ChatSliceState => {
 	try {
-		const items = JSON.parse(sessionStorage.getItem('chats') as string) || [
+		const items = JSON.parse(localStorage.getItem('chats') as string) || [
 			{
 				id: 1,
 				name: 'Game chat',

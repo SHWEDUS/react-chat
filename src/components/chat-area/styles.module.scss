@@ -3,9 +3,11 @@
 	flex-direction: row;
 	gap: 10px;
 	align-items: center;
+	position: relative;
 
-	textarea {
-		max-height: 200px;
-		min-height: 50px;
+	.emojiPicker {
+		position: absolute;
+		right: 0;
+		bottom: 80px;
 	}
 }

@@ -11,7 +11,7 @@ export const userSlice = createSlice({
 		setUser: (state, action: PayloadAction<string>) => {
 			state.name = action.payload;
 			state.isAuth = true;
-			sessionStorage.setItem(
+			localStorage.setItem(
 				'user',
 				JSON.stringify({ isAuth: true, name: action.payload })
 			);
@@ -19,7 +19,7 @@ export const userSlice = createSlice({
 		logout: state => {
 			state.name = '';
 			state.isAuth = false;
-			sessionStorage.removeItem('user');
+			localStorage.removeItem('user');
 		}
 	}
 });
