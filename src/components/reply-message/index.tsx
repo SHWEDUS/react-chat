@@ -20,7 +20,9 @@ const ReplyMessage: React.FC<MessageProps> = ({
 			<div id={item.id.toString()} className={styles.messageCard}>
 				<span className={styles.messageHeader}>
 					<b>{item.author}</b>
-					<p className={styles.messageText}>{item.text}</p>
+					<p className={styles.messageText}>
+						{item.text.length > 50 ? item.text.slice(0, 50) + '...' : item.text}
+					</p>
 				</span>
 				<button className={styles.cross} onClick={onCLose}>
 					<CloseOutlined />
@@ -36,7 +38,9 @@ const ReplyMessage: React.FC<MessageProps> = ({
 		>
 			<span className={styles.messageHeader}>
 				<b>{item.author}</b>
-				<p className={styles.messageText}>{item.text}</p>
+				<p className={styles.messageText}>
+					{item.text.length > 50 ? item.text.slice(0, 50) + '...' : item.text}
+				</p>
 			</span>
 		</a>
 	);

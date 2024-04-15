@@ -1,4 +1,6 @@
 .list {
+	overflow: auto;
+	height: 80vh;
 	margin-top: 20px;
 	.item {
 		border-block-end: 1px solid #0958d9 !important;

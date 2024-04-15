@@ -8,8 +8,9 @@ const { TextArea } = Input;
 
 interface ChatAreaProps {
 	handleSendMessage: (text: string) => void;
+	title?: string;
 }
-const ChatArea: React.FC<ChatAreaProps> = ({ handleSendMessage }) => {
+const ChatArea: React.FC<ChatAreaProps> = ({ handleSendMessage, title }) => {
 	const [value, setValue] = useState('');
 	const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -25,7 +26,12 @@ const ChatArea: React.FC<ChatAreaProps> = ({ handleSendMessage }) => {
 
 	const handleOnClickEmoji = (emoji: string) => {
 		setValue(prevState => prevState + emoji);
+		inputRef?.current?.focus();
 	};
+
+	if (!title) {
+		return <></>;
+	}
 
 	return (
 		<div className={styles.chatArea}>

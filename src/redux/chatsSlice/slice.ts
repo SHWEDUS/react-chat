@@ -10,8 +10,21 @@ export const userSlice = createSlice({
 	name: 'chats',
 	initialState,
 	reducers: {
-		addChat: (state, action: PayloadAction<IChat>) => {
-			state.items = [...state.items, action.payload];
+		addChat: (state, action: PayloadAction<string>) => {
+			const chat: IChat = {
+				name: action.payload,
+				messages: [],
+				id:
+					state.items.reduce(
+						(prev, current) => (prev <= current.id ? current.id : prev),
+						0
+					) + 1
+			};
+			state.items = [...state.items, chat];
+			localStorage.setItem('chats', JSON.stringify(state.items));
+		},
+		removeChat: (state, action: PayloadAction<number>) => {
+			state.items = state.items.filter(item => item.id !== action.payload);
 			localStorage.setItem('chats', JSON.stringify(state.items));
 		},
 		sendMessage: (state, action: PayloadAction<IMessage>) => {
@@ -30,6 +43,6 @@ export const userSlice = createSlice({
 	}
 });
 
-export const { addChat, sendMessage } = userSlice.actions;
+export const { addChat, sendMessage, removeChat } = userSlice.actions;
 
 export default userSlice.reducer;

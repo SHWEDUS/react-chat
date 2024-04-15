@@ -1,10 +1,14 @@
-import { Button, Layout, List, Typography } from 'antd';
-import React, { memo, useEffect, useRef } from 'react';
+import { Button, Input, InputRef, Layout, List, Typography } from 'antd';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { IChat } from '../../models/IChat';
 import type { IUser } from '../../models/IUser';
 import styles from './styles.module.scss';
-import { LogoutOutlined } from '@ant-design/icons';
+import {
+	LogoutOutlined,
+	PlusCircleOutlined,
+	CloseOutlined
+} from '@ant-design/icons';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -15,6 +19,8 @@ interface PageLayoutProps {
 	siderItems?: IChat[];
 	footer?: React.ReactNode;
 	logout?: () => void;
+	createChat?: (value: string) => void;
+	removeChat?: (id: number) => void;
 }
 
 const layoutStyle: React.CSSProperties = {
@@ -76,9 +82,15 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 	title,
 	siderItems,
 	footer,
-	logout
+	logout,
+	createChat,
+	removeChat
 }) => {
 	const messagesContainerRef = useRef<HTMLDivElement>(null);
+	const inputRef = useRef<InputRef>(null);
+	const [showInput, setShowInput] = useState(false);
+	const [value, setValue] = useState('');
+
 	useEffect(() => {
 		if (messagesContainerRef.current) {
 			messagesContainerRef.current.scrollTop =
@@ -102,9 +114,40 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 						renderItem={item => (
 							<List.Item key={item.id} className={styles.item}>
 								<Link to={`/chat/${item.id}`}>{item.name}</Link>
+								{item.id !== 1 && item.id !== 2 && item.id !== 3 && (
+									<Button
+										type={'text'}
+										onClick={() => removeChat && removeChat(item.id)}
+									>
+										<CloseOutlined />
+									</Button>
+								)}
 							</List.Item>
 						)}
 					/>
+					{showInput && (
+						<Input
+							ref={inputRef}
+							placeholder={'Enter chat name'}
+							value={value}
+							onChange={e => setValue(e.target.value)}
+							onPressEnter={() => {
+								createChat && createChat(value);
+								setValue('');
+								setShowInput(false);
+							}}
+						/>
+					)}
+					<Button
+						style={{ marginTop: '10px' }}
+						onClick={() => {
+							setShowInput(!showInput);
+							inputRef?.current?.focus();
+						}}
+					>
+						<PlusCircleOutlined />
+						Create Chat
+					</Button>
 				</Sider>
 				<Layout style={layoutStyle}>
 					<Header style={headerStyle}>{title}</Header>
